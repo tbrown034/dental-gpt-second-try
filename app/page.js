@@ -1,18 +1,22 @@
 "use client";
 import { useState } from "react";
+import { getAIResponse } from "./utils/gtpAPI.jsx";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false); // Add a new state variable to track form submission
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [aiResponse, setAIResponse] = useState(""); // Add a new state variable for the AI response
 
   const handleChange = (e) => {
     setQuestion(e.target.value);
     console.log("target", e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("submitted question", question);
+    const response = await getAIResponse(question); // Get the AI response
+    setAIResponse(response); // Set the AI response
     setIsSubmitted(true); // Set isSubmitted to true when the form is submitted
   };
 
@@ -61,11 +65,13 @@ export default function Home() {
       )}
 
       {isSubmitted && (
-        <div className="flex flex-col items-center gap-4 text-xl">
+        <div className="flex flex-col items-center gap-4 py-20 text-2xl">
           <p>
-            Your question was: <span>{question}</span>
+            Your question was:{" "}
+            <span className="text-yellow-600">{question}</span>
           </p>
-          <p>Dental GPT says:</p>
+          <p>Dental GPT says:</p>{" "}
+          <span className="text-yellow-600">{aiResponse}</span>
           <button
             onClick={handleReset}
             className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600"
