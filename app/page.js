@@ -2,19 +2,17 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [inputQuestion, setInputQuestion] = useState("");
   const [question, setQuestion] = useState("");
-  const [returnQuestion, setReturnQuestion] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("question", question);
-    setQuestion("");
-  };
 
   const handleChange = (e) => {
     setQuestion(e.target.value);
-    console.log(e.target.value);
+    console.log("question", question);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submitted question", question);
+    setQuestion("");
   };
 
   const handleKeyPress = (e) => {
@@ -26,32 +24,41 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen gap-4 px-2 text-white bg-cyan-700">
-      <h1 className="text-4xl font-bold">Dental GPT</h1>
-      <p className=" md:w-96 w-72 lg:w-max">
-        Dental GPT is an Open AI-powered chatbox that is designed to give you
-        quick answers to any of you dental needs.
-      </p>
-
-      <form
-        className="flex flex-col gap-2 p-4 border-4 border-cyan-500"
-        onSubmit={handleSubmit}
-      >
-        <div className="flex flex-col items-center gap-2">
+    <main className="flex flex-col justify-center min-h-screen gap-10 text-emerald-100 bg-emerald-900 ">
+      <div className="flex flex-col items-center gap-4 px-8">
+        <h1 className="text-5xl font-extrabold ">Dental GPT</h1>
+        <h3 className="font-mono text-xl ">
+          An <span className="text-yellow-600">AI-powered</span> chatbox
+          designed to answer all your{" "}
+          <span className="text-yellow-600">dental questions</span>.
+        </h3>
+      </div>
+      <div className="flex justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center gap-2 px-4 text-2xl lg:w-2/3"
+        >
           <label>Your Question:</label>
           <textarea
-            rows={4}
-            placeholder="Your question here ..."
-            className="px-2 text-black md:w-96 w-72 bg-lime-50"
+            placeholder="Ask here ..."
+            className="w-full p-2 text-black h-28 lg:w-2/3"
             value={question}
             onChange={handleChange}
             onKeyPress={handleKeyPress}
-          ></textarea>
+          />
+          <button className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600">
+            Send Question
+          </button>
+        </form>
+      </div>
+      {question && (
+        <div className="flex flex-col items-center gap-4 text-xl">
+          <p>
+            Your question was: <span>{question}</span>
+          </p>
+          <p>Dental GPT says:</p>
         </div>
-        <button className="text-sm bg-cyan-600 hover:bg-cyan-500">
-          Send Question
-        </button>
-      </form>
+      )}
     </main>
   );
 }
