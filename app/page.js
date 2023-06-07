@@ -3,16 +3,17 @@ import { useState } from "react";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false); // Add a new state variable to track form submission
 
   const handleChange = (e) => {
     setQuestion(e.target.value);
-    console.log("question", question);
+    console.log("target", e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted question", question);
-    setQuestion("");
+    setIsSubmitted(true); // Set isSubmitted to true when the form is submitted
   };
 
   const handleKeyPress = (e) => {
@@ -21,6 +22,11 @@ export default function Home() {
       e.preventDefault(); // Prevent the default behavior (creating a new line in the textarea)
       handleSubmit(e); // Submit the form
     }
+  };
+
+  const handleReset = () => {
+    setQuestion("");
+    setIsSubmitted(false);
   };
 
   return (
@@ -33,30 +39,39 @@ export default function Home() {
           <span className="text-yellow-600">dental questions</span>.
         </h3>
       </div>
-      <div className="flex justify-center">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center justify-center gap-2 px-4 text-2xl lg:w-2/3"
-        >
-          <label>Your Question:</label>
-          <textarea
-            placeholder="Ask here ..."
-            className="w-full p-2 text-black h-28 lg:w-2/3"
-            value={question}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
-          />
-          <button className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600">
-            Send Question
-          </button>
-        </form>
-      </div>
-      {question && (
+      {!isSubmitted && (
+        <div className="flex justify-center">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center justify-center gap-2 px-4 text-2xl lg:w-2/3"
+          >
+            <label>Your Question:</label>
+            <textarea
+              placeholder="Ask here ..."
+              className="w-full p-2 text-black h-28 lg:w-2/3"
+              value={question}
+              onChange={handleChange}
+              onKeyPress={handleKeyPress}
+            />
+            <button className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600">
+              Send Question
+            </button>
+          </form>
+        </div>
+      )}
+
+      {isSubmitted && (
         <div className="flex flex-col items-center gap-4 text-xl">
           <p>
             Your question was: <span>{question}</span>
           </p>
           <p>Dental GPT says:</p>
+          <button
+            onClick={handleReset}
+            className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600"
+          >
+            Start Over
+          </button>
         </div>
       )}
     </main>
