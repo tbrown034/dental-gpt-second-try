@@ -9,10 +9,20 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("question", question);
+    setQuestion("");
   };
 
   const handleChange = (e) => {
     setQuestion(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      // Check if the Enter key was pressed without the Shift key
+      e.preventDefault(); // Prevent the default behavior (creating a new line in the textarea)
+      handleSubmit(e); // Submit the form
+    }
   };
 
   return (
@@ -35,6 +45,7 @@ export default function Home() {
             className="px-2 text-black md:w-96 w-72 bg-lime-50"
             value={question}
             onChange={handleChange}
+            onKeyPress={handleKeyPress}
           ></textarea>
         </div>
         <button className="text-sm bg-cyan-600 hover:bg-cyan-500">
