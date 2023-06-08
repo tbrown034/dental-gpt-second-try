@@ -1,4 +1,6 @@
 "use client";
+import { motion } from "framer-motion";
+
 import { useState } from "react";
 import { getAIResponse } from "./utils/gtpAPI.jsx";
 
@@ -36,14 +38,19 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen px-6 text-white bg-teal-900 ">
       <section className="flex flex-col justify-center min-h-screen text-white bg-teal-900 gap-14 ">
-        <div className="flex flex-col gap-2 ">
+        <motion.div
+          className="flex flex-col gap-2 "
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           <h1 className="text-5xl font-extrabold ">Dental GPT</h1>
           <h3 className="font-mono text-xl ">
             An <span className="text-teal-200">AI-powered</span> chatbox
             designed to answer all your{" "}
             <span className="text-teal-200">dental questions</span>
           </h3>
-        </div>
+        </motion.div>
         {!isSubmitted && (
           <form
             onSubmit={handleSubmit}
@@ -63,7 +70,12 @@ export default function Home() {
         )}
 
         {isSubmitted && (
-          <div className="flex flex-col gap-4 text-2xl">
+          <motion.div
+            className="flex flex-col gap-4 text-2xl"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="p-2 bg-teal-700 rounded-lg">
               <p className="font-bold text-teal-50">You</p>
               <p className="text-white">{question}</p>
@@ -78,7 +90,7 @@ export default function Home() {
             >
               Ask Another Question
             </button>
-          </div>
+          </motion.div>
         )}
       </section>
       <div>
