@@ -84,7 +84,7 @@ export default function Home() {
       <div>
         <p className="py-2 text-sm border-t-2 border-white">
           This website was created by Trevor Brown using a tech stack that
-          includes Node.js, Next.js., tailwind and Open AI's Chat GPT-3 API.
+          includes Node.js, Next.js., tailwind and the GPT-3 API from Open AI.
           Thanks for visiting!
         </p>
       </div>
