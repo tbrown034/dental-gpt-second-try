@@ -34,52 +34,60 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col justify-center min-h-screen gap-10 text-emerald-100 bg-emerald-900 ">
-      <div className="flex flex-col items-center gap-4 px-8">
-        <h1 className="text-5xl font-extrabold ">Dental GPT</h1>
-        <h3 className="font-mono text-xl ">
-          An <span className="text-yellow-600">AI-powered</span> chatbox
-          designed to answer all your{" "}
-          <span className="text-yellow-600">dental questions</span>.
-        </h3>
-      </div>
-      {!isSubmitted && (
-        <div className="flex justify-center">
+    <main className="flex flex-col min-h-screen px-6 text-white bg-teal-900 ">
+      <section className="flex flex-col justify-center min-h-screen text-white bg-teal-900 gap-14 ">
+        <div className="flex flex-col gap-2 ">
+          <h1 className="text-5xl font-extrabold ">Dental GPT</h1>
+          <h3 className="font-mono text-xl ">
+            An <span className="text-teal-200">AI-powered</span> chatbox
+            designed to answer all your{" "}
+            <span className="text-teal-200">dental questions</span>
+          </h3>
+        </div>
+        {!isSubmitted && (
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center justify-center gap-2 px-4 text-2xl lg:w-2/3"
+            className="flex flex-col justify-center text-2xl"
           >
-            <label>Your Question:</label>
             <textarea
-              placeholder="Ask here ..."
-              className="w-full p-2 text-black h-28 lg:w-2/3"
+              placeholder="Ask your dental question here ..."
+              className="w-full h-40 p-2 text-teal-800 bg-teal-50"
               value={question}
               onChange={handleChange}
               onKeyPress={handleKeyPress}
             />
-            <button className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600">
+            <button className="py-2 mt-8 bg-teal-700 rounded-lg hover:bg-teal-50 hover:text-teal-700">
               Send Question
             </button>
           </form>
-        </div>
-      )}
+        )}
 
-      {isSubmitted && (
-        <div className="flex flex-col items-center gap-4 py-20 text-2xl">
-          <p>
-            Your question was:{" "}
-            <span className="text-yellow-600">{question}</span>
-          </p>
-          <p>Dental GPT says:</p>{" "}
-          <span className="text-yellow-600">{aiResponse}</span>
-          <button
-            onClick={handleReset}
-            className="px-3 py-2 mt-8 rounded-lg sm:w-1/2 bg-emerald-600"
-          >
-            Start Over
-          </button>
-        </div>
-      )}
+        {isSubmitted && (
+          <div className="flex flex-col gap-4 text-2xl">
+            <div className="p-2 bg-teal-700 rounded-lg">
+              <p className="font-bold text-teal-50">You</p>
+              <p className="text-white">{question}</p>
+            </div>
+            <div className="flex flex-col items-end p-2 bg-teal-500 rounded-lg">
+              <p className="font-bold text-teal-50">Dental GPT</p>
+              <p className="text-white">{aiResponse}</p>
+            </div>
+            <button
+              onClick={handleReset}
+              className="w-full py-2 mt-8 bg-teal-700 rounded-lg hover:bg-teal-50 hover:text-teal-700"
+            >
+              Ask Another Question
+            </button>
+          </div>
+        )}
+      </section>
+      <div>
+        <p className="py-2 text-sm border-t-2 border-white">
+          This website was created by Trevor Brown using a tech stack that
+          includes Node.js, Next.js., tailwind and Open AI's Chat GPT-3 API.
+          Thanks for visiting!
+        </p>
+      </div>
     </main>
   );
 }
