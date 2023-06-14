@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link.js";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { getAIResponse } from "./utils/gtpAPI.jsx";
@@ -89,12 +90,20 @@ export default function Home() {
           </motion.div>
         )}
       </section>
-      <div>
-        <p className="py-2 mt-8 text-xs text-teal-400 border-t-2 border-white">
+      <div className="py-2 mt-8 text-xs text-teal-400 border-t-2 border-white">
+        <p>
           This website was created by Trevor Brown using a tech stack that
-          includes Node.js, Next.js, Tailwind CSS, and the GPT-3 API from Open
-          AI. Thanks for visiting!
+          includes Node.js, Next.js, Tailwind CSS, and the GPT-3.5 but when API
+          from Open AI. Thanks for visiting!
         </p>
+        <div className="flex justify-center py-4">
+          <Link
+            className="p-2 mt-8 transition-all duration-200 ease-in-out bg-teal-700 rounded-lg shadow-lg text-teal-50 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            href="/contact"
+          >
+            Contact Me
+          </Link>
+        </div>
       </div>
     </main>
   );
